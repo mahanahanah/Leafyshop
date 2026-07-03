@@ -1,53 +1,83 @@
+
 let cart = [];
 
-// ADD ITEM
-function addToCart(item) {
-  cart.push(item);
+function addItem(name, price) {
+  cart.push({name, price});
   updateCart();
+  alert(name + " added to cart!");
 }
 
-// UPDATE CART UI
 function updateCart() {
-  const list = document.getElementById("cartList");
+  let user = localStorage.getItem("mc_user");
 
-  if (!list) return;
+  let text =
+`🎫 STORE PURCHASE REQUEST
 
-  list.innerHTML = "";
+👤 IGN: ${user}
+
+🛒 ITEMS:`;
+
+  let total = 0;
 
   cart.forEach(item => {
-    const li = document.createElement("li");
-    li.innerText = item;
-    list.appendChild(li);
+    text += `\n- ${item.name} (${item.price})`;
+
+    let priceNum = parseInt(item.price.replace(/[^0-9]/g, ""));
+    if (!isNaN(priceNum)) total += priceNum;
   });
+
+  text += `\n\n💰 TOTAL: ${total}
+📌 Send this in Discord ticket`;
+
+  document.getElementById("ticketBox").value = text;
 }
 
-// CHECKOUT
-function checkout() {
-  const nameInput = document.getElementById("username");
+function copyTicket() {
+  let t = document.getElementById("ticketBox");
+  t.select();
+  document.execCommand("copy");
+  alert("Ticket copied!");
+}
+let lastClick = 0;
 
-  if (!nameInput || !nameInput.value) {
-    alert("Put your username first!");
+function rateLimit() {
+  let now = Date.now();
+  if (now - lastClick < 1000) {
+    return false; // block spam clicks
+  }
+  lastClick = now;
+  return true;
+}
+let loginAttempts = 0;
+
+function login() {
+  if (loginAttempts >= 5) {
+    alert("Too many attempts. Wait 1 minute.");
     return;
   }
 
-  if (cart.length === 0) {
-    alert("Cart is empty!");
-    return;
+  let name = document.getElementById("loginName").value;
+  let pass = document.getElementById("loginPass").value;
+
+  let savedName = localStorage.getItem("mc_user");
+  let savedPass = localStorage.getItem("mc_pass");
+
+  if (name === savedName && pass === savedPass) {
+    loginAttempts = 0;
+    localStorage.setItem("mc_logged", "true");
+    alert("Welcome " + name);
+    closeLogin();
+  } else {
+    loginAttempts++;
+    alert("Wrong login");
   }
-
-  let message =
-`🛒 NEW ORDER
-
-👤 Username: ${nameInput.value}
-
-📦 Items:
-- ${cart.join("\n- ")}
-
-Send this in Discord ticket.`;
-
-  alert(message);
-  navigator.clipboard.writeText(message);
-
-  cart = [];
-  updateCart();
 }
+document.addEventListener("keydown", function(e) {
+  if (
+    e.key === "F12" ||
+    (e.ctrlKey && e.shiftKey && e.key === "I")
+  ) {
+    alert("Developer tools blocked");
+    e.preventDefault();
+  }
+});

@@ -62,41 +62,31 @@ body {
   border-radius: 10px;
 }
 
-.right input {
+.login-box {
+  display: none;
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  background: #1e1e1e;
+  padding: 15px;
+  border-radius: 10px;
+  width: 250px;
+}
+.login-box {
+  display: none;
+  position: fixed;
+  top: 80px;
+  right: 20px;
+
+  width: 260px;
+  background: #1e1e1e;
+
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.login-box input {
+  width: 100%;
+  margin: 5px 0;
   padding: 8px;
-  border-radius: 8px;
-  border: none;
-  outline: none;
-  width: 180px;
-}
-.cart {
-  background: #1a1a1a;
-  padding: 15px;
-  margin-top: 20px;
-  border-radius: 10px;
-}
-
-.cart ul {
-  list-style: none;
-  padding: 0;
-}
-
-.cart li {
-  padding: 5px 0;
-}
-.cart {
-  background: #1a1a1a;
-  padding: 15px;
-  margin-top: 20px;
-  border-radius: 10px;
-}
-
-.cart ul {
-  list-style: none;
-  padding: 0;
-}
-
-.cart li {
-  padding: 5px 0;
-  color: white;
 }
