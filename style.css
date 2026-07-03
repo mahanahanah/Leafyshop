@@ -84,3 +84,19 @@ body {
 .cart li {
   padding: 5px 0;
 }
+.cart {
+  background: #1a1a1a;
+  padding: 15px;
+  margin-top: 20px;
+  border-radius: 10px;
+}
+
+.cart ul {
+  list-style: none;
+  padding: 0;
+}
+
+.cart li {
+  padding: 5px 0;
+  color: white;
+}
