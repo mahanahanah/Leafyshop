@@ -1,35 +1,49 @@
-
 let cart = [];
 
-function addItem(name, price) {
-  cart.push({name, price});
+function addToCart(item) {
+  cart.push(item);
   updateCart();
-  alert(name + " added to cart!");
 }
 
 function updateCart() {
-  let user = localStorage.getItem("mc_user");
+  let list = document.getElementById("cartList");
+  list.innerHTML = "";
 
-  let text =
-`🎫 STORE PURCHASE REQUEST
-
-👤 IGN: ${user}
-
-🛒 ITEMS:`;
-
-  let total = 0;
-
-  cart.forEach(item => {
-    text += `\n- ${item.name} (${item.price})`;
-
-    let priceNum = parseInt(item.price.replace(/[^0-9]/g, ""));
-    if (!isNaN(priceNum)) total += priceNum;
+  cart.forEach((item) => {
+    let li = document.createElement("li");
+    li.innerText = item;
+    list.appendChild(li);
   });
+}
 
-  text += `\n\n💰 TOTAL: ${total}
-📌 Send this in Discord ticket`;
+function checkout() {
+  let name = document.getElementById("username").value;
 
-  document.getElementById("ticketBox").value = text;
+  if (!name) {
+    alert("Put your Minecraft username first!");
+    return;
+  }
+
+  if (cart.length === 0) {
+    alert("Cart is empty!");
+    return;
+  }
+
+  let message =
+`🛒 NEW STORE ORDER
+
+👤 Username: ${name}
+
+📦 Items:
+- ${cart.join("\n- ")}
+
+💬 Please open a Discord ticket and send this order.`;
+
+  alert(message);
+  navigator.clipboard.writeText(message);
+
+  cart = [];
+  updateCart();
 }
 
 function copyTicket() {
@@ -48,29 +62,7 @@ function rateLimit() {
   lastClick = now;
   return true;
 }
-let loginAttempts = 0;
 
-function login() {
-  if (loginAttempts >= 5) {
-    alert("Too many attempts. Wait 1 minute.");
-    return;
-  }
-
-  let name = document.getElementById("loginName").value;
-  let pass = document.getElementById("loginPass").value;
-
-  let savedName = localStorage.getItem("mc_user");
-  let savedPass = localStorage.getItem("mc_pass");
-
-  if (name === savedName && pass === savedPass) {
-    loginAttempts = 0;
-    localStorage.setItem("mc_logged", "true");
-    alert("Welcome " + name);
-    closeLogin();
-  } else {
-    loginAttempts++;
-    alert("Wrong login");
-  }
 }
 document.addEventListener("keydown", function(e) {
   if (

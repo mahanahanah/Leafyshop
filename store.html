@@ -20,10 +20,9 @@
     <a href="rules.html">Rules</a>
   </div>
 
-  <div class="right">
-    <button onclick="openLogin()">Login</button>
-    <button onclick="openRegister()">Register</button>
-  </div>
+<div class="right">
+  <input id="username" placeholder="Minecraft username">
+</div>
 
 </div>
 
@@ -35,12 +34,11 @@
 
 <!-- CART -->
 <div class="rank">
-<h2>🧾 Your Cart</h2>
+<div class="cart">
+  <h3>Your Cart</h3>
+  <ul id="cartList"></ul>
 
-<textarea id="ticketBox" rows="12" style="width:100%;"></textarea>
-
-<br><br>
-<button onclick="copyTicket()">Copy Ticket</button>
+  <button onclick="checkout()">Checkout</button>
 </div>
 
 <!-- RANKS -->
@@ -54,7 +52,7 @@
   <li>+1 Home</li>
   <li>VIP Kit</li>
 </ul>
-<button onclick="addItem('VIP', '100K')">Add to Cart</button>
+<button onclick="addToCart('VIP - 100K')">Add VIP</button>
 </div>
 
 <div class="rank">
@@ -65,7 +63,7 @@
   <li>+2 Homes</li>
   <li>Gold Kit</li>
 </ul>
-<button onclick="addItem('Gold', '250K')">Add to Cart</button>
+<button onclick="addToCart('Gold - 250K')">Add Gold</button>
 </div>
 
 <div class="rank">
@@ -76,7 +74,7 @@
   <li>Elite Prefix</li>
   <li>+3 Homes</li>
 </ul>
-<button onclick="addItem('Elite', '325K')">Add to Cart</button>
+<button onclick="addToCart('Elite - 325K')">Add Elite</button>
 </div>
 
 <div class="rank">
@@ -86,7 +84,7 @@
   <li>No RTP cooldown</li>
   <li>All perks unlocked</li>
 </ul>
-<button onclick="addItem('Sponsor', '1.25M')">Add to Cart</button>
+<button onclick="addToCart('Sponsor - 1.25M')">Add Sponsor</button>
 </div>
 
 <!-- KEYS -->
@@ -94,41 +92,19 @@
 <h2>🔑 Crate Keys</h2>
 
 <p>Iron Key - 15K</p>
-<button onclick="addItem('Iron Key','15K')">Add</button>
+<button onclick="addToCart('Iron Key - 15K')">Iron Key</button>
 
 <p>Diamond Key - 25K</p>
-<button onclick="addItem('Diamond Key','25K')">Add</button>
+<button onclick="addToCart('Diamond Key - 25K')">Diamond Key</button>
 
 <p>Emerald Key - 40K</p>
-<button onclick="addItem('Emerald Key','40K')">Add</button>
+<button onclick="addToCart('Emerald Key - 40K')">Emerald Key</button>
 
 <p>Redstone Key - 55K</p>
-<button onclick="addItem('Redstone Key','55K')">Add</button>
+<button onclick="addToCart('Redstone Key - 55K')">Redstone Key</button>
 
 <p>Amethyst Key - 80K</p>
-<button onclick="addItem('Amethyst Key','80K')">Add</button>
-
-</div>
-
-</div>
-
-<!-- LOGIN -->
-<div class="login-box" id="loginBox">
-  <h3>Login</h3>
-  <input id="loginName" placeholder="Minecraft Username">
-  <input id="loginPass" type="password">
-  <button onclick="login()">Login</button>
-  <button onclick="closeLogin()">Close</button>
-</div>
-
-<!-- REGISTER -->
-<div class="login-box" id="registerBox">
-  <h3>Register</h3>
-  <input id="regName" placeholder="Minecraft Username">
-  <input id="regPass" type="password">
-  <button onclick="register()">Create Account</button>
-  <button onclick="closeRegister()">Close</button>
-</div>
+<button onclick="addToCart('Amethyst Key - 80K')">Amethyst Key</button>
 
 <script src="script.js"></script>
 
