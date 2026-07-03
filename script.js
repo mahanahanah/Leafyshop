@@ -1,26 +1,32 @@
 let cart = [];
 
+// ADD ITEM
 function addToCart(item) {
   cart.push(item);
   updateCart();
 }
 
+// UPDATE CART UI
 function updateCart() {
-  let list = document.getElementById("cartList");
+  const list = document.getElementById("cartList");
+
+  if (!list) return;
+
   list.innerHTML = "";
 
-  cart.forEach((item) => {
-    let li = document.createElement("li");
+  cart.forEach(item => {
+    const li = document.createElement("li");
     li.innerText = item;
     list.appendChild(li);
   });
 }
 
+// CHECKOUT
 function checkout() {
-  let name = document.getElementById("username").value;
+  const nameInput = document.getElementById("username");
 
-  if (!name) {
-    alert("Put your Minecraft username first!");
+  if (!nameInput || !nameInput.value) {
+    alert("Put your username first!");
     return;
   }
 
@@ -30,14 +36,14 @@ function checkout() {
   }
 
   let message =
-`🛒 NEW STORE ORDER
+`🛒 NEW ORDER
 
-👤 Username: ${name}
+👤 Username: ${nameInput.value}
 
 📦 Items:
 - ${cart.join("\n- ")}
 
-💬 Please open a Discord ticket and send this order.`;
+Send this in Discord ticket.`;
 
   alert(message);
   navigator.clipboard.writeText(message);
@@ -45,31 +51,3 @@ function checkout() {
   cart = [];
   updateCart();
 }
-
-function copyTicket() {
-  let t = document.getElementById("ticketBox");
-  t.select();
-  document.execCommand("copy");
-  alert("Ticket copied!");
-}
-let lastClick = 0;
-
-function rateLimit() {
-  let now = Date.now();
-  if (now - lastClick < 1000) {
-    return false; // block spam clicks
-  }
-  lastClick = now;
-  return true;
-}
-
-}
-document.addEventListener("keydown", function(e) {
-  if (
-    e.key === "F12" ||
-    (e.ctrlKey && e.shiftKey && e.key === "I")
-  ) {
-    alert("Developer tools blocked");
-    e.preventDefault();
-  }
-});
